@@ -1,27 +1,43 @@
 # BindingRecyclerView
 
-Reduce boilerplate code with RecyclerViews by using Android's data binding ande naming convention.
+Reduce boilerplate code with RecyclerViews by using Android's data binding and naming convention.
 
 
 
 ## Example
-Create an adapter extending `BindingRecyclerView` and implement the single required method:
+Create an adapter extending `BindingRecyclerView`, similarly to RecyclerView,
+ provide a list of elements and override a few methods:
 
 ```
-class SingleTypeRecyclerViewAdapter : BindingRecyclerView<TitleViewModel>() {
+class MyRecyclerViewAdapter : BindingRecyclerView<TitleViewModel>() {
 
-    override fun getLayoutIdForPosition(position: Int): Int {
-        return R.layout.title_view_item
+    var viewModels = listOf<BindingRecyclerView.BindableViewHolder>()
+            set(value) {
+                field = value
+                notifyDataSetChanged()
+            }
+    
+    override fun getViewModelForPosition(position: Int): BindableViewHolder {
+        return viewModels[position]
+    }
+    
+    override fun getItemCount(): Int {
+        return viewModels.size
     }
     
 }
 ```
 
-With your ViewModel:
+You must have a ViewModel that extends `BindingRecyclerView.BindableViewHolder`:
 ```
 data class TitleViewModel(
-        val title: String
-)
+        val title: String,
+        val clickCallback: (() -> Unit)? = null
+) : BindingRecyclerView.BindableViewHolder {
+
+    override val layoutId: Int = R.layout.title_view_item
+
+}
 ```
 
 And your layout:
@@ -77,31 +93,10 @@ class App: Application() {
 
 ## Aditional info
 In case you need you need a recycler view different layouts, we got you covered!
-You only have to override one more method.
+Simply provide multiple implementations of `BindingRecyclerView.BindableViewHolder`.
 
-Here is a sample:
-```
-class MultipleTypeRecyclerViewAdapter : BindingRecyclerView<Any>() {
-
-    override fun getLayoutIdForPosition(position: Int): Int {
-        return when (viewModels[position]) {
-            is TitleViewModel -> R.layout.title_view_item
-            is TitleSubtitleViewModel -> R.layout.title_subtitle_view_item
-            else -> throw Exception("ViewModel type is not mapped to a layout ID!")
-        }
-    }
-
-    override fun onBindViewHolder(holder: BindingRecyclerViewViewHolder<Any>, position: Int, payloads: MutableList<Any>) {
-        super.onBindViewHolder(holder, position, payloads)
-
-        /**
-         * If more customization is needed on the layout bindings, it can be done here
-         */
-        if (position == viewModels.size) {
-            val textSubtitleViewModel = holder.binding as TitleSubtitleViewItemBinding
-            Log.d("BINDING_ADAPTER", textSubtitleViewModel.viewModel?.title)
-        }
-    }
-}
-```
+If you are creating an Adapter based on a List you can use the following 
+implementations of `BindingRecyclerView`:
+* `BindingMutableListRecyclerView`
+* `BindingListRecyclerView`
 

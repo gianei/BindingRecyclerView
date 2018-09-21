@@ -1,14 +1,9 @@
 package com.glsebastiany.bindingrecyclerviewdemo.sampleadapters
 
-import com.glsebastiany.bindingrecyclerview.BindingRecyclerView
-import com.glsebastiany.bindingrecyclerviewdemo.R
+import com.glsebastiany.bindingrecyclerview.BindingListRecyclerView
 import com.glsebastiany.bindingrecyclerviewdemo.sampleadapters.viewmodels.TitleViewModel
 
-class SingleTypeRecyclerViewAdapter : BindingRecyclerView<TitleViewModel>() {
-
-    override fun getLayoutIdForPosition(position: Int): Int {
-        return R.layout.title_view_item
-    }
+class SingleTypeRecyclerViewAdapter : BindingListRecyclerView<TitleViewModel>() {
 
     companion object {
         fun getSampleAdapter(clickCallback: (() -> Unit)): SingleTypeRecyclerViewAdapter {

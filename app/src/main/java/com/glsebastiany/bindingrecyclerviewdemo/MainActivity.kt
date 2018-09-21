@@ -20,6 +20,7 @@ class MainActivity : AppCompatActivity() {
 
         recyclerView = findViewById(R.id.recyclerView)
 
+        singleTypeAdapter.onBindViewHolderBinding()
         recyclerView.adapter = singleTypeAdapter
         recyclerView.layoutManager = LinearLayoutManager(this)
     }

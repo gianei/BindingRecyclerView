@@ -6,15 +6,9 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
 
-abstract class BindingRecyclerView<T> : RecyclerView.Adapter<BindingRecyclerViewViewHolder<T>>() {
+abstract class BindingRecyclerView<T> : RecyclerView.Adapter<BindingRecyclerViewViewHolder<T>>() where T : BindingRecyclerView.BindableViewHolder {
 
-    var viewModels = mutableListOf<T>()
-        set(value) {
-            field = value
-            notifyDataSetChanged()
-        }
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BindingRecyclerViewViewHolder<T> {
+    final override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BindingRecyclerViewViewHolder<T> {
 
         val binding = DataBindingUtil.inflate<ViewDataBinding>(
                 LayoutInflater.from(parent.context),
@@ -26,21 +20,27 @@ abstract class BindingRecyclerView<T> : RecyclerView.Adapter<BindingRecyclerView
         return BindingRecyclerViewViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: BindingRecyclerViewViewHolder<T>,
-                                  position: Int) {
-        val model = viewModels[position]
+    final override fun onBindViewHolder(holder: BindingRecyclerViewViewHolder<T>,
+                                        position: Int) {
+        val model = getViewModelForPosition(position)
         holder.bindModel(model)
-
+        onBindViewHolderBinding(holder.binding, position)
     }
 
-    override fun getItemViewType(position: Int): Int {
-        return getLayoutIdForPosition(position)
+    final override fun getItemViewType(position: Int): Int {
+        return getViewModelForPosition(position).layoutId
     }
 
-    override fun getItemCount(): Int {
-        return viewModels.count()
-    }
+    /**
+     * Is called just after {@link #onBindViewHolder(binding, position)}
+     * Use this event to further customize your layout binding
+     */
+    open fun onBindViewHolderBinding(binding: ViewDataBinding, position: Int) {}
 
-    protected abstract fun getLayoutIdForPosition(position: Int): Int
+    abstract fun getViewModelForPosition(position: Int): T
+
+    interface BindableViewHolder {
+        val layoutId: Int
+    }
 
 }
