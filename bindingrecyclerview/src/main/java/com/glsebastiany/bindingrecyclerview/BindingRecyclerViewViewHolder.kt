@@ -9,4 +9,5 @@ class BindingRecyclerViewViewHolder<in T>(val binding: ViewDataBinding) : Recycl
         binding.setVariable(BindingRecyclerViewConfig.provideViewModelBrId(), model)
         binding.executePendingBindings()
     }
+
 }

@@ -1,8 +1,5 @@
 apply plugin: 'com.android.application'
-
 apply plugin: 'kotlin-android'
-
-apply plugin: 'kotlin-android-extensions'
 
 android {
     compileSdkVersion 27
@@ -30,6 +27,7 @@ android {
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+
     ext.androidSupportVersion = '27.1.1'
     implementation "com.android.support:recyclerview-v7:$androidSupportVersion"
     implementation "com.android.support:appcompat-v7:$androidSupportVersion"

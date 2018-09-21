@@ -7,7 +7,7 @@
 
         <variable
             name="viewModel"
-            type="com.glsebastiany.bindingrecyclerviewdemo.RecyclerViewAdapter.ViewModel" />
+            type="com.glsebastiany.bindingrecyclerviewdemo.sampleadapters.viewmodels.TitleViewModel" />
 
     </data>
 
@@ -19,10 +19,11 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:onClick="@{view -> viewModel.clickCallback.invoke()}"
             android:padding="8dp"
-            android:text="@{viewModel.text}"
+            android:text="@{viewModel.title}"
             android:textAlignment="center"
-            tools:text="Test" />
+            tools:text="Title" />
 
     </FrameLayout>
 
