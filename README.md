@@ -100,3 +100,19 @@ implementations of `BindingRecyclerView`:
 * `BindingMutableListRecyclerView`
 * `BindingListRecyclerView`
 
+
+## Get it
+Add the JitPack repository to your root build.gradle:
+```
+    allprojects {
+		repositories {
+			...
+			maven { url 'https://jitpack.io' }
+		}
+	}
+```
+
+Add the dependency
+```
+    implementation 'com.github.gianei:BindingRecyclerView:1.0.0'
+```
