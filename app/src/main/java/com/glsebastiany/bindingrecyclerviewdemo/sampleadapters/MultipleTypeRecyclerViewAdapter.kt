@@ -1,6 +1,6 @@
 package com.glsebastiany.bindingrecyclerviewdemo.sampleadapters
 
-import android.databinding.ViewDataBinding
+import androidx.databinding.ViewDataBinding
 import android.util.Log
 import com.glsebastiany.bindingrecyclerview.BindingRecyclerView
 import com.glsebastiany.bindingrecyclerviewdemo.databinding.TitleSubtitleViewItemBinding
