@@ -1,4 +1,5 @@
 # BindingRecyclerView
+[![](https://jitpack.io/v/gianei/BindingRecyclerView.svg)](https://jitpack.io/#gianei/BindingRecyclerView)
 
 Reduce boilerplate code with RecyclerViews by using Android's data binding and naming convention.
 
