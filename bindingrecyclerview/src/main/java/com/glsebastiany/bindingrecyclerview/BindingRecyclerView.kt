@@ -17,6 +17,7 @@ abstract class BindingRecyclerView<T> : RecyclerView.Adapter<BindingRecyclerView
                 false
         )
 
+        onCreateViewHolderBinding(binding)
         return BindingRecyclerViewViewHolder(binding)
     }
 
@@ -32,8 +33,14 @@ abstract class BindingRecyclerView<T> : RecyclerView.Adapter<BindingRecyclerView
     }
 
     /**
-     * Is called just after {@link #onBindViewHolder(binding, position)}
-     * Use this event to further customize your layout binding
+     * Is called just after [RecyclerView.Adapter.onCreateViewHolder]
+     * Use this event to further customize your layout binding as you would in [RecyclerView.Adapter.onCreateViewHolder]
+     */
+    open fun onCreateViewHolderBinding(binding: ViewDataBinding) {}
+
+    /**
+     * Is called just after [RecyclerView.Adapter.onBindViewHolder]
+     * Use this event to further customize your layout binding as you would in [RecyclerView.Adapter.onBindViewHolder]
      */
     open fun onBindViewHolderBinding(binding: ViewDataBinding, position: Int) {}
 

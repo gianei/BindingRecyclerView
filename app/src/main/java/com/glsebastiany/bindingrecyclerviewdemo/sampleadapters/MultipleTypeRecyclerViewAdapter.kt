@@ -1,15 +1,14 @@
 package com.glsebastiany.bindingrecyclerviewdemo.sampleadapters
 
-import androidx.databinding.ViewDataBinding
 import android.util.Log
+import androidx.databinding.ViewDataBinding
 import com.glsebastiany.bindingrecyclerview.BindingRecyclerView
-import com.glsebastiany.bindingrecyclerviewdemo.databinding.TitleSubtitleViewItemBinding
 import com.glsebastiany.bindingrecyclerviewdemo.sampleadapters.viewmodels.TitleSubtitleViewModel
 import com.glsebastiany.bindingrecyclerviewdemo.sampleadapters.viewmodels.TitleViewModel
 
 class MultipleTypeRecyclerViewAdapter : BindingRecyclerView<BindingRecyclerView.BindableViewHolder>() {
 
-    var viewModels = mutableListOf<BindingRecyclerView.BindableViewHolder>()
+    var viewModels = mutableListOf<BindableViewHolder>()
         set(value) {
             field = value
             notifyDataSetChanged()
@@ -23,15 +22,22 @@ class MultipleTypeRecyclerViewAdapter : BindingRecyclerView<BindingRecyclerView.
         return viewModels.size
     }
 
+    override fun onCreateViewHolderBinding(binding: ViewDataBinding) {
+
+        /**
+         * If more customization is needed on creation of layout, it can be done here
+         */
+        Log.d("BINDING_ADAPTER_CREATE", "Binding ${binding::class.simpleName} created")
+
+    }
+
     override fun onBindViewHolderBinding(binding: ViewDataBinding, position: Int) {
 
         /**
-         * If more customization is needed on the layout bindings, it can be done here
+         * If more customization is needed on binding of layout, it can be done here
          */
-        if (position == viewModels.size) {
-            val textSubtitleViewModel = binding as TitleSubtitleViewItemBinding
-            Log.d("BINDING_ADAPTER", textSubtitleViewModel.viewModel?.title)
-        }
+        Log.d("BINDING_ADAPTER_BIND", "Binding ${binding::class.simpleName} bind")
+
     }
 
     companion object {
