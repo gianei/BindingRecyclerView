@@ -116,6 +116,6 @@ allprojects {
 Add the dependency
 ```
 repositories {
-    implementation 'com.github.gianei:BindingRecyclerView:2.0.0'
+    implementation 'com.github.gianei:BindingRecyclerView:2.2.0'
 }
 ```
